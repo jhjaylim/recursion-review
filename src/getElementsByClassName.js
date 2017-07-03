@@ -4,7 +4,7 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className) {
+/*var getElementsByClassName = function(className) {
   // your code here
   //base case 
     //no child nodes 
@@ -38,9 +38,32 @@ var getElementsByClassName = function(className) {
 
 
   return results;
-};
-/*
-  var getElement
 
+};*/
 
-*/
+  var getElementsByClassName = function (className, node) {
+    var results = [];
+      
+
+    if (node === undefined) {
+      node = document.body;
+    }
+
+    // find class list
+    if (node.classList.contains(className)) {
+      results.push(node);
+    }
+ 
+    //if there is child node then iterate over loop
+    if (node.firstChild) { // find childnode and inside the find classlist
+      for (var i = 0; i < node.children.length; i++) {
+        results = results.concat(getElementsByClassName(className, node.children[i]));
+      } 
+      
+    }
+ 
+    return results;
+    
+     
+  };
+
