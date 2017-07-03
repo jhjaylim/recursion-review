@@ -41,29 +41,28 @@
 
 };*/
 
-  var getElementsByClassName = function (className, node) {
-    var results = [];
-      
-
-    if (node === undefined) {
-      node = document.body;
-    }
-
-    // find class list
-    if (node.classList.contains(className)) {
-      results.push(node);
-    }
- 
-    //if there is child node then iterate over loop
-    if (node.firstChild) { // find childnode and inside the find classlist
-      for (var i = 0; i < node.children.length; i++) {
-        results = results.concat(getElementsByClassName(className, node.children[i]));
-      } 
-      
-    }
- 
-    return results;
+var getElementsByClassName = function (className, node) {
     
-     
-  };
+  var results = [];
+      
+  if (node === undefined) {
+    node = document.body;
+  }
+
+  // find class list
+  if (node.classList.contains(className)) {
+    results.push(node);
+  }
+ 
+  //if there is child node then iterate over loop
+  if (node.firstChild) { // find childnode and inside the find classlist
+    for (var i = 0; i < node.children.length; i++) {
+      results = results.concat(getElementsByClassName(className, node.children[i]));
+    } 
+      
+  }
+ 
+  return results;
+    
+};
 
