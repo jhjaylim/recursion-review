@@ -12,8 +12,10 @@ var stringifyJSON = function(obj) {
   }
   //undefined or function
     //return null
-  if (objType === 'boolean' || objType === 'number' || objType === 'null') {
+  if (objType === 'boolean' || objType === 'number') {
     return obj.toString();
+  } else if ( obj === null ) {
+    return 'null';
   } else if (objType === 'string') {
     return '"' + obj + '"';
   } else if (Array.isArray(obj)) {
@@ -23,9 +25,21 @@ var stringifyJSON = function(obj) {
     });
     return '[' + stringifiedArray.join(',') + ']';
   
-  } else if (objType === 'object') {  
-
+  } else if (objType === 'object') {
+    if (Object.keys(obj).length < 1) {
+      return '{}';
+    }  
+    var temporaryArray = [];
+    for (var key in obj) {
+      if (typeof obj[key] !== 'undefied' && typeof obj[key] !== 'function' && key !== 'undefined') {
+        temporaryArray.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
+    
+      }
+    }
+    return '{' + temporaryArray.join(',') + '}';
+  
   }
+
   //boolean
     //return convert boolean to string
   //number
